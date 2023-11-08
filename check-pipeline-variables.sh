@@ -20,7 +20,7 @@ result=$(printenv)
 IFS=$'\n' read -ra envLines <<< "$result"
 
 for i in "${!envLines[@]}"; do
-    envLines[$i]=${envLines[$i%%=*]}
+    envLines[$i]=${envLines[$i]%%=*}
 done
 
 missing=()
