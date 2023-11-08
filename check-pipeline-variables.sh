@@ -1,6 +1,6 @@
 #!/bin/bash
 
-envContents=$(<.env.production.dist)
+envContents=$(<.env.example)
 yamlContents=$(<bitbucket-pipelines.yml)
 
 contents="$envContents$yamlContents"
