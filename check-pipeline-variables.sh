@@ -58,4 +58,6 @@ done
 if [ ${#missing[@]} -gt 0 ]; then
     echo "Missing variables: ${missing[@]}"
     exit 1
+else
+    echo "No missing variables found."
 fi
