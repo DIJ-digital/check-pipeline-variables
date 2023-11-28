@@ -61,7 +61,10 @@ for name in ${names[@]}; do
     done
 
     if [ "$found" == false ]; then
-        missing+=($name)
+        # Check if the name is already in the missing array to avoid duplicates
+        if [[ ! " ${missing[*]} " =~ " ${name} " ]]; then
+            missing+=($name)
+        fi
     fi
 done
 
