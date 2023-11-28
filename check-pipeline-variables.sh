@@ -30,6 +30,8 @@ echo "YAML contents: $yamlContents"
 
 contents="$envContents$yamlContents"
 
+echo "Concatenated variables: $contents"
+
 # Initialize the names array properly
 declare -a names
 
