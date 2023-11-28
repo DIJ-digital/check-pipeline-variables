@@ -29,8 +29,8 @@ names=()
 regex="\$\{([a-zA-Z0-9_]+)\}"
 
 while read -r line; do
-  if [[ $line =~ $regex ]]; then
-      name="${BASH_REMATCH[1]}"
+  if echo "$line" | grep -oP '\$\{\K[^}]+(?=\})' > /dev/null; then
+      name=$(echo "$line" | grep -oP '\$\{\K[^}]+(?=\})')
       names+=("$name")
       echo "Found variable: $name"
   fi
