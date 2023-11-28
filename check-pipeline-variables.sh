@@ -26,13 +26,13 @@ $yamlContents"
 names=()
 
 while read -r line; do
-  echo "Line: $line"
-    if [[ $line =~ \$\{[\w]*\} ]]; then
+    if [[ "$line" =~ \$\{[\w]+\} ]]; then
         name=$(echo "$line" | awk -F'[{}]' '{print $2}')
         names+=("$name")
         echo "Found variable: $name"
     fi
 done <<< "$contents"
+
 echo "Names array: ${names[*]}"
 
 result=$(printenv)
