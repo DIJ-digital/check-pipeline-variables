@@ -31,8 +31,6 @@ for line in $contents; do
         if [[ $line =~ ([a-zA-Z_][a-zA-Z0-9_]*)\=\$\{([a-zA-Z_][a-zA-Z0-9_]*)\} ]]; then
             refName=${BASH_REMATCH[2]}
             varReferences[$name]=$refName
-        else
-            varReferences[$name]=""
         fi
     fi
 done
@@ -58,20 +56,18 @@ for name in "${!varReferences[@]}"; do
         continue
     fi
 
+    # Check if the variable or its reference exists in the environment
     found=false
     ref=${varReferences[$name]}
     for env in $envLines; do
-        if [ "$env" == "$name" ] || [ ! -z "$ref" ] && [ "$env" == "$ref" ]; then
+        if [ "$env" == "$name" ] || ([ ! -z "$ref" ] && [ "$env" == "$ref" ]); then
             found=true
             break
         fi
     done
 
     if [ "$found" == false ]; then
-        # Check if the name is already in the missing array to avoid duplicates
-        if [[ ! " ${missing[*]} " =~ " ${name} " ]]; then
-            missing+=($name)
-        fi
+        missing+=($name)
     fi
 done
 
