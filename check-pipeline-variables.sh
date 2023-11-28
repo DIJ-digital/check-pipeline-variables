@@ -44,7 +44,7 @@ envLines=$(printenv | cut -d '=' -f1)
 
 # Check for missing variables
 missing=()
-ignoredNames=("APP_KEY" "APP_NAME")
+ignoredReferences=("APP_KEY" "APP_NAME")
 
 for reference in ${references[@]}; do
     echo "Checking variable: $reference"
