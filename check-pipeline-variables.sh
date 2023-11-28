@@ -24,14 +24,17 @@ echo "Reading environment file: $envFile"
 # Read contents of the environment file
 envContents=$(cat "$envFile")
 
-# Extract environment variable names from contents
-echo "Extracting environment variable names from file content..."
+# Extract environment variable names and references from contents
+echo "Extracting environment variable names and references from file content..."
 names=()
+references=()
 for line in $envContents; do
-    if [[ $line =~ \$\{[a-zA-Z_][a-zA-Z0-9_]*\} ]]; then
-        name=$(echo $line | grep -oP '\$\{\K[a-zA-Z_][a-zA-Z0-9_]*(?=\})')
+    if [[ $line =~ ^[a-zA-Z_][a-zA-Z0-9_]*= ]]; then
+        name=$(echo $line | grep -oP '^[a-zA-Z_][a-zA-Z0-9_]*(?==)')
+        reference=$(echo $line | grep -oP '(?<==).*$')
         names+=($name)
-        echo "Found variable: $name"
+        references+=($reference)
+        echo "Found variable: $name with reference: $reference"
     fi
 done
 
@@ -71,12 +74,10 @@ for name in ${names[@]}; do
 
     # Add to missing only if it's in the names array
     if [ "$found" == false ]; then
-        if [[ ! " ${names[*]} " =~ " ${name} " ]]; then
             if [[ ! " ${missing[*]} " =~ " ${name} " ]]; then
                 missing+=($name)
                 echo "Missing variable: $name"
             fi
-        fi
     fi
 done
 
