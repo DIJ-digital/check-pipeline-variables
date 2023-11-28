@@ -29,9 +29,9 @@ echo "Extracting environment variable names and references from file content..."
 names=()
 references=()
 for line in $envContents; do
-    if [[ $line =~ ^[a-zA-Z_][a-zA-Z0-9_]*=\$\{[a-zA-Z_][a-zA-Z0-9_]*\} ]]; then
+    if [[ $line =~ ^[a-zA-Z_][a-zA-Z0-9_]*=\$\{[a-zA-Z_][a-zA-Z0-9_]*\} ]] || [[ $line =~ ^[a-zA-Z_][a-zA-Z0-9_]*="\$\{[a-zA-Z_][a-zA-Z0-9_]*\}" ]]; then
         name=$(echo $line | grep -oP '^[a-zA-Z_][a-zA-Z0-9_]*(?==)')
-        reference=$(echo $line | grep -oP '(?<=\$\{)[^"}]+(?=\})')
+        reference=$(echo $line | grep -oP '(?<=\$\{)[a-zA-Z_][a-zA-Z0-9_]*(?=\})')
         names+=($name)
         references+=($reference)
         echo "Found variable: $name with reference: ${reference}"
