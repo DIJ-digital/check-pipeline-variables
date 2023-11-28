@@ -33,7 +33,11 @@ while read -r line; do
     fi
 done <<< "$contents"
 
-echo "Names array: ${names[*]}"
+for item in "${names[@]}"
+do
+    echo $item
+done
+
 
 result=$(printenv)
 
