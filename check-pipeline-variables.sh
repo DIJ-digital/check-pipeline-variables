@@ -79,6 +79,7 @@ for reference in ${references[@]}; do
                 missing+=($reference)
                 echo "Missing variable: $reference"
             fi
+      fi
     fi
 done
 
