@@ -28,7 +28,7 @@ echo "Reading YAML contents from bitbucket-pipelines.yml"
 yamlContents=$(<bitbucket-pipelines.yml)
 echo "YAML contents: $yamlContents"
 
-contents="$envContents$yamlContents"
+contents="$envContents"$'\n'"$yamlContents"
 
 echo "Concatenated variables: $contents"
 
