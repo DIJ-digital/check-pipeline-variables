@@ -28,8 +28,7 @@ names=()
 while read -r line; do
   echo "Line: $line"
     if [[ $line =~ \$\{[\w]*\} ]]; then
-        lastPart="${line#*\{}"
-        name="${lastPart%\}}"
+        name=$(echo "$line" | awk -F'[{}]' '{print $2}')
         names+=("$name")
         echo "Found variable: $name"
     fi
