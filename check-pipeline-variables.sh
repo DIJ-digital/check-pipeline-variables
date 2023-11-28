@@ -45,6 +45,7 @@ while read -r line; do
         echo "Found variable: $name"
     fi
 done <<< "$contents"
+echo "Names array: ${names[*]}"
 
 echo "Getting environment variables"
 result=$(printenv)
