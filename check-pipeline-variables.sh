@@ -39,11 +39,28 @@ missing=()
 ignoredNames=("APP_KEY" "APP_NAME")
 
 for name in ${names[@]}; do
-    if [[ " ${ignoredNames[@]} " =~ " ${name} " ]]; then
+    # Check if the name is in ignoredNames
+    ignore=false
+    for ignoredName in ${ignoredNames[@]}; do
+        if [ "$name" == "$ignoredName" ]; then
+            ignore=true
+            break
+        fi
+    done
+
+    if [ "$ignore" == true ]; then
         continue
     fi
 
-    if [[ ! " ${envLines[@]} " =~ " ${name} " ]]; then
+    found=false
+    for env in $envLines; do
+        if [ "$env" == "$name" ]; then
+            found=true
+            break
+        fi
+    done
+
+    if [ "$found" == false ]; then
         missing+=($name)
     fi
 done
