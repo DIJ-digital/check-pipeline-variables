@@ -51,7 +51,7 @@ for reference in ${references[@]}; do
 
     # Check if the reference is in ignoredReferences
     ignore=false
-    for ignoredreference in ${ignoredReferences[@]}; do
+    for ignoredReference in ${ignoredReferences[@]}; do
         if [ "$reference" == "$ignoredReference" ]; then
             ignore=true
             echo "Ignoring variable: $reference"
