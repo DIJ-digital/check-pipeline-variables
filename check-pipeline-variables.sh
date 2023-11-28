@@ -71,7 +71,7 @@ for name in ${names[@]}; do
 
     # Add to missing only if it's in the names array
     if [ "$found" == false ]; then
-        if [[ ! " ${names[@]} " =~ " ${name} " ]]; then
+        if [[ ! " ${names[*]} " =~ " ${name} " ]]; then
             if [[ ! " ${missing[*]} " =~ " ${name} " ]]; then
                 missing+=($name)
                 echo "Missing variable: $name"
