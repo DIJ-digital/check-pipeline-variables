@@ -46,15 +46,15 @@ envLines=$(printenv | cut -d '=' -f1)
 missing=()
 ignoredNames=("APP_KEY" "APP_NAME")
 
-for name in ${names[@]}; do
-    echo "Checking variable: $name"
+for reference in ${references[@]}; do
+    echo "Checking variable: $reference"
 
-    # Check if the name is in ignoredNames
+    # Check if the reference is in ignoredReferences
     ignore=false
-    for ignoredName in ${ignoredNames[@]}; do
-        if [ "$name" == "$ignoredName" ]; then
+    for ignoredreference in ${ignoredReferences[@]}; do
+        if [ "$reference" == "$ignoredReference" ]; then
             ignore=true
-            echo "Ignoring variable: $name"
+            echo "Ignoring variable: $reference"
             break
         fi
     done
@@ -65,18 +65,19 @@ for name in ${names[@]}; do
 
     found=false
     for env in $envLines; do
-        if [ "$env" == "$name" ]; then
+        if [ "$env" == "$reference" ]; then
             found=true
-            echo "Variable found in environment: $name"
+            echo "Variable found in environment: $reference"
             break
         fi
     done
 
-    # Add to missing only if it's in the names array
+    # Add to missing only if it's in the references array
     if [ "$found" == false ]; then
-            if [[ ! " ${missing[*]} " =~ " ${name} " ]]; then
-                missing+=($name)
-                echo "Missing variable: $name"
+      if [[ ! " ${names[*]} " =~ " ${reference} " ]]; then
+            if [[ ! " ${missing[*]} " =~ " ${reference} " ]]; then
+                missing+=($reference)
+                echo "Missing variable: $reference"
             fi
     fi
 done
