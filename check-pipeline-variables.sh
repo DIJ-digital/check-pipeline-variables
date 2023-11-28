@@ -31,7 +31,7 @@ references=()
 for line in $envContents; do
     if [[ $line =~ ^[a-zA-Z_][a-zA-Z0-9_]*=\$\{[a-zA-Z_][a-zA-Z0-9_]*\} ]]; then
         name=$(echo $line | grep -oP '^[a-zA-Z_][a-zA-Z0-9_]*(?==)')
-        reference=$(echo $line | grep -oP '(?<=\$\{)[a-zA-Z_][a-zA-Z0-9_]*(?=\})')
+        reference=$(echo $line | grep -oP '(?<=\$\{)[^"}]+(?=\})')
         names+=($name)
         references+=($reference)
         echo "Found variable: $name with reference: ${reference}"
