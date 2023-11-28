@@ -21,6 +21,8 @@ yamlContents=$(<bitbucket-pipelines.yml)
 
 contents="$envContents$yamlContents"
 
+echo "$contents"
+
 # Initialize the names array properly
 declare -a names
 
