@@ -12,7 +12,6 @@ envFile=$1
 # Read contents of the provided environment file
 if [ -f "$envFile" ]; then
     envContents=$(<"$envFile")
-    echo "Environment file contents: $envContents"
 else
     echo "Environment file not found: $envFile"
     exit 1
