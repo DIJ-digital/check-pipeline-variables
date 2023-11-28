@@ -1,6 +1,22 @@
 #!/bin/bash
-# Read contents of files
-envContents=$(cat .env.production.dist)
+
+# Check if file argument is provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <env-file>"
+    exit 1
+fi
+
+# Get the file from the first argument
+envFile="$1"
+
+# Check if file exists
+if [ ! -f "$envFile" ]; then
+    echo "Error: File '$envFile' not found."
+    exit 1
+fi
+
+# Read contents of the environment file
+envContents=$(cat "$envFile")
 yamlContents=$(cat bitbucket-pipelines.yml)
 
 # Combine contents
