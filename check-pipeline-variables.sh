@@ -26,6 +26,7 @@ $yamlContents"
 names=()
 
 while read -r line; do
+  echo "Line: $line"
     if [[ $line =~ \$\{[\w]*\} ]]; then
         lastPart="${line#*\{}"
         name="${lastPart%\}}"
@@ -35,9 +36,7 @@ while read -r line; do
 done <<< "$contents"
 echo "Names array: ${names[*]}"
 
-echo "Getting environment variables"
 result=$(printenv)
-echo "Environment variables: $result"
 
 IFS=$'\n' read -ra envLines <<< "$result"
 
