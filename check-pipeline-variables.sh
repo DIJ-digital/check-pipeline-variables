@@ -25,12 +25,15 @@ $yamlContents"
 # Initialize the names array properly
 names=()
 
+# Regular expression to match words within ${}
+regex="\$\{([a-zA-Z0-9_]+)\}"
+
 while read -r line; do
-    if [[ $line =~ /\$\{[\w]+\} ]]; then
-        name=$(echo "$line" | awk -F'[{}]' '{print $2}')
-        names+=("$name")
-        echo "Found variable: $name"
-    fi
+  if [[ $line =~ $regex ]]; then
+      name="${BASH_REMATCH[1]}"
+      names+=("$name")
+      echo "Found variable: $name"
+  fi
 done <<< "$contents"
 
 for item in "${names[@]}"
