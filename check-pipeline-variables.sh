@@ -26,7 +26,7 @@ $yamlContents"
 names=()
 
 while read -r line; do
-    if [[ "$line" =~ \$\{[\w]+\} ]]; then
+    if [[ $line =~ /\$\{[\w]+\} ]]; then
         name=$(echo "$line" | awk -F'[{}]' '{print $2}')
         names+=("$name")
         echo "Found variable: $name"
