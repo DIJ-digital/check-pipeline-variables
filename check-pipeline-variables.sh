@@ -1,19 +1,13 @@
 #!/bin/bash
 
-echo "Starting script..."
-
 # Check if an argument is provided
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <environment-file>"
     exit 1
 fi
 
-echo "Argument provided: $1"
-
 # Use the first argument as the environment file
 envFile=$1
-
-echo "Reading environment file: $envFile"
 
 # Read contents of the provided environment file
 if [ -f "$envFile" ]; then
@@ -24,19 +18,13 @@ else
     exit 1
 fi
 
-echo "Reading YAML contents from bitbucket-pipelines.yml"
 yamlContents=$(<bitbucket-pipelines.yml)
-echo "YAML contents: $yamlContents"
 
 contents="$envContents
 $yamlContents"
 
-echo "Concatenated variables: $contents"
-
 # Initialize the names array properly
-declare -a names
-
-echo "Parsing variables from contents"
+names=()
 
 while read -r line; do
     if [[ $line =~ \$\{[\w]*\} ]]; then
@@ -60,7 +48,7 @@ for i in "${!envLines[@]}"; do
 done
 
 # Initialize the missing array properly
-declare -a missing
+missing=()
 ignoredNames=('APP_KEY' 'APP_NAME')
 
 echo "Checking for missing variables"
