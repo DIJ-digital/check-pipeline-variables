@@ -74,7 +74,7 @@ for reference in ${references[@]}; do
 
     # Add to missing only if it's in the references array
     if [ "$found" == false ]; then
-      if [[ ! " ${names[*]} " =~ " ${reference} " ]]; then
+      if [[ " ${names[*]} " =~ " ${reference} " ]]; then
         if [[ ! " ${missing[*]} " =~ " ${reference} " ]]; then
             missing+=($reference)
             echo "Missing variable: $reference"
